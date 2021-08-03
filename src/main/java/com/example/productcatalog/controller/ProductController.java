@@ -1,5 +1,6 @@
 package com.example.productcatalog.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,18 @@ public class ProductController {
 	@Autowired
 	private ProductRepository productRepository;
 
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Product> findAll() {
+
+		return (List<Product>) productRepository.findAll();
+	}
+
 	@RequestMapping(method = RequestMethod.POST)
 	public Product create(@RequestBody Product product) {
 
 		return productRepository.save(product);
 	}
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Optional<Product> finById(@PathVariable Long id) {
 
